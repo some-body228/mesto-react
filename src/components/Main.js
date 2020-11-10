@@ -49,35 +49,6 @@ function Main(props){
             {renderCards()}
             </ul>
         </section>
-        <PopupWithForm name="redaction" title="Редактировать профиль" btnText="Сохранить" isOpen = {props.profilePopupState} onClose = {props.onClose} children = {
-            <>
-                <input className="popup__input" id="user-name" type="text" placeholder="Имя" name="name" required
-                    minLength="2" maxLength="40" />
-                <span className="popup__error" id="user-name-error"></span>
-                <input className="popup__input" id="user-caption" type="text" placeholder="О себе" name="caption"
-                    required minLength="2" maxLength="200"/> 
-                <span className="popup__error" id="user-caption-error"></span>
-            </>
-        }/>
-        <PopupWithForm name="add-card" title="Новое место" btnText="Создать" isOpen = {props.addCardPopupState} onClose = {props.onClose} children = {
-            <>
-                    <input className="popup__input" id="place" type="text" placeholder="Название" name="place" required
-                        minLength="1" maxLength="30"/>
-                    <span className="popup__error" id="place-error"></span>
-                    <input className="popup__input" id="link" type="url" placeholder="Ссылка на картинку" name="link"
-                        required/>
-                    <span className="popup__error" id="link-error"></span>
-            </>
-        }/>
-        <ImagePopup onClose={props.onClose} cardImageState={props.cardImageState}/>
-        <PopupWithForm name="confirm" title="Вы уверены?" btnText="да" isOpen = {false}  onClose = {props.onClose} children = {null}/>
-        <PopupWithForm name="avatar" title="Обновить аватар" btnText="Сохранить" isOpen = {props.avatarPopupState} onClose = {props.onClose} children = {
-            <>
-                <input className="popup__input" id="link" type="url" placeholder="Ссылка на картинку" name="linkAvatar"
-                    required/>
-                <span className="popup__error" id="link-error"></span>
-            </>
-        }/>
     </main>
     )
 }
