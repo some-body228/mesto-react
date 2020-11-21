@@ -1,7 +1,7 @@
 import React from "react"
 import PopupWithForm from "./PopupWithForm.js"
 import {CurrentUserContext} from "../context/CurrentUserContext.js"
-function EditProfilePopup (props){
+function EditProfilePopup ({isOpen, onClose, onUpdateUser}){
     const currentUser = React.useContext(CurrentUserContext)
     React.useEffect(() => {
         setName(currentUser.name);
@@ -18,14 +18,14 @@ function EditProfilePopup (props){
     }
     function handleSubmit(evt) {
         evt.preventDefault();
-        props.onUpdateUser({
+        onUpdateUser({
             name,
             about: description,
           });
         
     }
 return(
-    <PopupWithForm name="redaction" title="Редактировать профиль" btnText="Сохранить" onSubmit={handleSubmit} isOpen = {props.isOpen} onClose = {props.onClose} children = {
+    <PopupWithForm name="redaction" title="Редактировать профиль" btnText="Сохранить" onSubmit={handleSubmit} isOpen = {isOpen} onClose = {onClose} children = {
         <>
             <input className="popup__input" id="user-name" type="text" placeholder="Имя" name="name" required
                 minLength="2" maxLength="40" onChange={onNameChange} value={name || ""}/>

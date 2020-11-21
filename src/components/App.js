@@ -18,45 +18,41 @@ function App() {
     const [selectedCard, setSelectedCard] = React.useState({})
     const [cards, setCards] = React.useState([])
     React.useEffect(()=>{
-        api.getInitialCards()
-           .then((res) =>{
-                setCards(res)
+        Promise.all([
+            api.getInitialCards(),
+            api.getName()
+        ])
+        .then(([cards, userInfo])=>{
+            setCards(cards)
+            setCurrentUser({
+                name: userInfo.name,
+                about: userInfo.about,
+                avatar: userInfo.avatar,
+                id: userInfo._id
             })
+        })
     },[])
     function handleCardLike(card) {
         const isLiked = card.likes.some(i => i._id === currentUser.id);
         if(!isLiked){
-            api.likeCard(card._id).then((newCard) => {
-                const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-                setCards(newCards);
-            })
+            api.likeCard(card._id).then((newCard) => setNewLikesCallback(newCard))
         } else {
-            api.dislikeCard(card._id).then((newCard) => {
-                const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-                setCards(newCards);
-            })
+            api.dislikeCard(card._id).then((newCard) => setNewLikesCallback(newCard))
+        }
+        const setNewLikesCallback = (newCard) => {
+            const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+            setCards(newCards);
         }
     } 
     function handleCardDelete(card) {
         api.deleteCard(card._id).then((res) => {
             const newCards = cards.filter((c) => {
-                return card._id != c._id
+                return card._id !== c._id
             })
             setCards(newCards);
             
         })
     }
-    React.useEffect(()=>{
-        api.getName()
-            .then((res)=>{
-                setCurrentUser({
-                    name: res.name,
-                    about: res.about,
-                    avatar: res.avatar,
-                    id: res._id
-                })
-            })
-    },[])
     function handleEditAvatarClick(){
         setAvatarPopupOpen(!isEditAvatarPopupOpen)
     }
@@ -105,7 +101,6 @@ function App() {
     function handleAddPlaceSubmit(data){
         api.postCard(data)
         .then((res) =>{
-            console.log(res)
             setCards([res, ...cards])
             closeAllPopups()
         })

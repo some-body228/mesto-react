@@ -1,9 +1,8 @@
 import React from "react"
 import PopupWithForm from "./PopupWithForm.js"
-function AddPlacePopup(props){
+function AddPlacePopup({isOpen, onClose, onAddPlace}){
     const [place, setPlace] = React.useState("")
     const [link, setLink] = React.useState("")
-
     function onPlaceChange(evt){
         setPlace(evt.target.value)
     }
@@ -12,13 +11,13 @@ function AddPlacePopup(props){
     }
     function handleSubmit(evt) {
         evt.preventDefault();
-        props.onAddPlace({
+        onAddPlace({
             name: place,
             link
         })
     }
     return(
-        <PopupWithForm name="add-card" title="Новое место" btnText="Создать" onSubmit={handleSubmit} isOpen = {props.isOpen} onClose = {props.onClose} children = {
+        <PopupWithForm name="add-card" title="Новое место" btnText="Создать" onSubmit={handleSubmit} isOpen = {isOpen} onClose = {onClose} children = {
             <>
                     <input className="popup__input" id="place" type="text" placeholder="Название" name="place" required
                         minLength="1" maxLength="30" onChange={onPlaceChange}/>

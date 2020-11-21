@@ -14,17 +14,13 @@ class Api {
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers,
-    }).then((res) => {
-      return this._getResponseData(res);
-    });
+    }).then(this._getResponseData);
   }
 
   getName() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,
-    }).then((res) => {
-      return this._getResponseData(res);
-    });
+    }).then(this._getResponseData);
   }
 
   patchAvatar(avatarLink) {
@@ -34,18 +30,14 @@ class Api {
       body: JSON.stringify({
         avatar: avatarLink,
       }),
-    }).then((res) => {
-      return this._getResponseData(res);
-    });
+    }).then(this._getResponseData);
   }
   patchName(data) {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      return this._getResponseData(res);
-    });
+    }).then(this._getResponseData);
   }
 
   postCard(data) {
@@ -53,35 +45,27 @@ class Api {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      return this._getResponseData(res);
-    });
+    }).then(this._getResponseData);
   }
 
   deleteCard(id) {
     return fetch(`${this._url}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => {
-      return this._getResponseData(res);
-    });
+    }).then(this._getResponseData);
   }
   likeCard(id) {
     return fetch(`${this._url}/cards/likes/${id}`, {
       method: "PUT",
       headers: this._headers,
-    }).then((res) => {
-      return this._getResponseData(res);
-    });
+    }).then(this._getResponseData);
   }
 
   dislikeCard(id) {
     return fetch(`${this._url}/cards/likes/${id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => {
-      return this._getResponseData(res);
-    });
+    }).then(this._getResponseData);
   }
 }
  const api = new Api({

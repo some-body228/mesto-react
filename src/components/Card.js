@@ -10,8 +10,9 @@ function Card(props) {
     function handleDeleteClick() {
         props.onCardDelete(props.curCard)
     }
+    console.log('рендер карточки')
     return (
-        <li className="elements__card">
+        <li className="elements__card" >
             <img className="elements__image" src={props.curCard.link} alt={props.curCard.name} onClick={()=>{props.onCardClick(props.curCard)}} />
             <h2 className="elements__title">{props.curCard.name}</h2>
             <div className="elements__like-container">
